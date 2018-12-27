@@ -1,21 +1,18 @@
-# ReleaseTest
+# Cachex Release Test
 
-**TODO: Add description**
+This demonstrates an issue running `Cachex` when stripping the release
 
-## Installation
+From the shell, run:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `release_test` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:release_test, "~> 0.1.0"}
-  ]
-end
+```
+mix deps.get
+MIX_ENV=prod mix release
+_build/prod/rel/release_test/bin/release_test console
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/release_test](https://hexdocs.pm/release_test).
+Then attempt to use `Cachex`
 
+```
+iex(release_test@127.0.0.1)1> Cachex.start_link :some_cache, limit: 7
+{:error, :invalid_hook}
+```
